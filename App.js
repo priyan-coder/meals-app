@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import MealsNavigator from "./navigation/MealsNavigator";
 // Starts the entire App
 // expo install expo-font ==> To install expo-font
 // startAsync to fetchFonts
@@ -31,9 +32,5 @@ export default function App() {
       />
     );
   }
-  return (
-    <View>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+  return <MealsNavigator />;
 }
