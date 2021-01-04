@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigation/MealsNavigator";
+
 // Starts the entire App
 // expo install expo-font ==> To install expo-font
 // startAsync to fetchFonts
