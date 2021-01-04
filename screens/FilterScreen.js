@@ -14,5 +14,5 @@ const FilterScreen = (props) => {
 export default FilterScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "centre", alignItems: "centre" },
+  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
 });

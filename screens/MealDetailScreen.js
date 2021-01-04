@@ -14,5 +14,5 @@ const MealDetailScreen = (props) => {
 export default MealDetailScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "centre", alignItems: "centre" },
+  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
 });

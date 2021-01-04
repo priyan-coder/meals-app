@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
-import { AppLoading } from "expo";
+import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigation/MealsNavigator";
 // Starts the entire App
 // expo install expo-font ==> To install expo-font
 // startAsync to fetchFonts
 // Once the fonts are loaded ==> set fontLoaded to true
 // Until fonts are loaded ==> display Apploading
+// expo install expo-app-loading
 
 // Navigation using https://reactnavigation.org/docs/4.x/getting-started/
 // There's no URL for navigation in native apps unlike the web
@@ -29,6 +30,7 @@ export default function App() {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setFontLoaded(true)}
+        onError={(err) => console.log(err)}
       />
     );
   }
