@@ -18,6 +18,7 @@ import React from "react";
 // The selected category based on two lines below is availble in the CategoryMealsScreen Component and not outside it
 // const catID = props.navigation.getParam("categoryId");
 // const selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
+// params passed down can be retrieved as props.navigation.getParam("paramName")
 
 const CategoryMealsScreen = (props) => {
   const catID = props.navigation.getParam("categoryId");
