@@ -1,10 +1,15 @@
-import { Platform, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { CATEGORIES } from "../data/dummy-data";
 import Colors from "../constants/Colors";
-import { FlatList } from "react-native-web";
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 // Cusines Grid
 // CategoryMeals is the key from MealsNavigator.js , Navigator component
