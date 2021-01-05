@@ -1,6 +1,10 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
+import { CATEGORIES } from "../data/dummy-data";
+import Colors from "../constants/Colors";
+import { FlatList } from "react-native-web";
 import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // Cusines Grid
 // CategoryMeals is the key from MealsNavigator.js , Navigator component
@@ -10,22 +14,55 @@ import React from "react";
 // props.navigation.replace("CategoryMeals");
 // Even with a Go Back button it wont go back becuase theres nothing on the stack
 
+// Display categories with a FlatList
+// IMPORTANT params ==> data , renderItem
+// style each item / category with a gridItem style
+
+// Categories Screen is a component. But at the same time it is a function which takes props as a parameter. Thus it is efectively a JS object
+// To the JS object we can add properties using the dot notation
+
+// Platform API to check if Android or IOS
+
 const CategoriesScreen = (props) => {
-  return (
-    <View style={styles.screen}>
-      <Text> The CategoriesScreen !</Text>
-      <Button
-        title="Go To Meals"
+  const renderGridItem = (itemData) => {
+    return (
+      <TouchableOpacity
+        style={styles.gridItem}
         onPress={() => {
           props.navigation.navigate({ routeName: "CategoryMeals" });
         }}
-      />
-    </View>
+      >
+        <View>
+          <Text>{itemData.item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <FlatList
+      keyExtractor={(item, index) => item.id}
+      data={CATEGORIES}
+      renderItem={renderGridItem}
+      numColumns={2}
+    />
   );
 };
 
-export default CategoriesScreen;
+CategoriesScreen.navigationOptions = {
+  headerTitle: "Meal Categories",
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+  },
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+};
 
 const styles = StyleSheet.create({
   screen: { flex: 1, justifyContent: "center", alignItems: "center" },
+  gridItem: {
+    flex: 1,
+    margin: 15,
+    height: 150,
+  },
 });
+
+export default CategoriesScreen;
