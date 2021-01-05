@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 
+import { CATEGORIES } from "../data/dummy-data";
 import React from "react";
 
 // Display the different meals for the selected cuisine from the Cuisine aka Category Grid
@@ -12,10 +13,14 @@ import React from "react";
 // alternative to goback is pop()
 // props.navigation.goBack();
 
+// find takes a function and executes on every element in the array
+
 const CategoryMealsScreen = (props) => {
+  const catID = props.navigation.getParam("categoryId");
+  const selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
   return (
     <View style={styles.screen}>
-      <Text>The CategoryMealsScreen !</Text>
+      <Text>{selectedCategory.title}</Text>
       <Button
         title="Go to Meals"
         onPress={() => {

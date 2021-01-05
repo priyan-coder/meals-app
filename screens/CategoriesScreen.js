@@ -32,13 +32,21 @@ import React from "react";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 // The above two import statements were the cause of the error ==> Invariant Violation: View config getter callback for component `div` must be a function (received `undefined`). Make sure to start component names with a capital letter.
 
+// We pass the id of the item that was touched as categoryID to the CategoryMealsScreen
+// You can pass multiple params such as ids, numbers, arrays, objects to the next screen
+
 const CategoriesScreen = (props) => {
   const renderGridItem = (itemData) => {
     return (
       <TouchableOpacity
         style={styles.gridItem}
         onPress={() => {
-          props.navigation.navigate({ routeName: "CategoryMeals" });
+          props.navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              categoryId: itemData.item.id,
+            },
+          });
         }}
       >
         <View>
