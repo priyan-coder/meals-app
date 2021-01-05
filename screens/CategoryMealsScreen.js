@@ -1,7 +1,6 @@
-import { Button, Platform, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 import { CATEGORIES } from "../data/dummy-data";
-import Colors from "../constants/Colors";
 import React from "react";
 
 // Display the different meals for the selected cuisine from the Cuisine aka Category Grid
@@ -43,21 +42,17 @@ const CategoryMealsScreen = (props) => {
   );
 };
 
+const styles = StyleSheet.create({
+  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
+
 // JS object or Function since we have changing data for the selected category
 CategoryMealsScreen.navigationOptions = (navigationData) => {
   catID = navigationData.navigation.getParam("categoryId");
   selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
   return {
     headerTitle: selectedCategory.title,
-    headerStyle: {
-      backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
-    },
-    headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
   };
 };
 
 export default CategoryMealsScreen;
-
-const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
-});
