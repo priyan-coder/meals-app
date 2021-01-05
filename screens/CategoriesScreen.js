@@ -28,6 +28,10 @@ import React from "react";
 
 // Platform API to check if Android or IOS
 
+// import { FlatList } from "react-native-web";
+// import { TouchableOpacity } from "react-native-gesture-handler";
+// The above two import statements were the cause of the error ==> Invariant Violation: View config getter callback for component `div` must be a function (received `undefined`). Make sure to start component names with a capital letter.
+
 const CategoriesScreen = (props) => {
   const renderGridItem = (itemData) => {
     return (
