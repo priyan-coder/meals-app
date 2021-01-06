@@ -1,6 +1,7 @@
 import { Button, StyleSheet, Text, View } from "react-native";
+import { CATEGORIES, MEALS } from "../data/dummy-data";
 
-import { CATEGORIES } from "../data/dummy-data";
+import { FlatList } from "react-native-gesture-handler";
 import React from "react";
 
 // Display the different meals for the selected cuisine from the Cuisine aka Category Grid
@@ -20,13 +21,29 @@ import React from "react";
 // const selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
 // params passed down can be retrieved as props.navigation.getParam("paramName")
 
+// We are actually interested to find the meals associated with the selected category
+// every meal in the dummydata has an array of categories that it belongs to
+// indexOf is more than or equal to zero if the catId is in the array of catIds of the meal object
+
 const CategoryMealsScreen = (props) => {
+  const renderMealItem = (itemData) => {
+    return (
+      <View>
+        <Text>{itemData.item.title} </Text>
+      </View>
+    );
+  };
   const catID = props.navigation.getParam("categoryId");
-  const selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
+  const displayedMeals = MEALS.filter(
+    (meal) => meal.categoryIds.indexOf(catID) >= 0
+  );
   return (
     <View style={styles.screen}>
-      <Text>The CategoryMealsScreen</Text>
-      <Text>{selectedCategory.title}</Text>
+      <FlatList
+        data={displayedMeals}
+        keyExtractor={(item, index) => item.id}
+        renderItem={renderMealItem}
+      />
       <Button
         title="Go to Meals"
         onPress={() => {
