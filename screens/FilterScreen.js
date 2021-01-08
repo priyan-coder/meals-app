@@ -1,7 +1,10 @@
+import { StyleSheet, Text, View } from "react-native";
+
 import React from "react";
+
 // Display the filter settings
 
-import { View, Text, StyleSheet } from "react-native";
+
 
 const FilterScreen = (props) => {
   return (

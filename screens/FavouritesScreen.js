@@ -1,7 +1,8 @@
-import React from "react";
-// Display the favourite meals selected
+import { StyleSheet, Text, View } from "react-native";
 
-import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+
+// Display the favourite meals selected
 
 const FavouritesScreen = (props) => {
   return (

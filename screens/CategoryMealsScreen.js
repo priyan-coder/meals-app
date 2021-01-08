@@ -1,10 +1,62 @@
-import { Button, StyleSheet, Text, View } from "react-native";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
+import { FlatList, StyleSheet, View } from "react-native";
 
-import { FlatList } from "react-native-gesture-handler";
+import MealItem from "../components/MealItem";
 import React from "react";
 
+const CategoryMealsScreen = (props) => {
+  const renderMealItem = (itemData) => {
+    return (
+      <MealItem
+        title={itemData.item.title}
+        duration={itemData.item.duration}
+        complexity={itemData.item.complexity}
+        affordability={itemData.item.affordability}
+        image={itemData.item.imageUrl}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: "MealDetail",
+            params: {
+              mealId: itemData.item.id,
+            },
+          });
+        }}
+      />
+    );
+  };
+  const catID = props.navigation.getParam("categoryId");
+  const displayedMeals = MEALS.filter(
+    (meal) => meal.categoryIds.indexOf(catID) >= 0
+  );
+  return (
+    <View style={styles.screen}>
+      <FlatList
+        data={displayedMeals}
+        keyExtractor={(item, index) => item.id}
+        renderItem={renderMealItem}
+        style={{ width: "100%" }}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
+
+// JS object or Function since we have changing data for the selected category
+CategoryMealsScreen.navigationOptions = (navigationData) => {
+  catID = navigationData.navigation.getParam("categoryId");
+  selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
+  return {
+    headerTitle: selectedCategory.title,
+  };
+};
+
+export default CategoryMealsScreen;
+
 // Display the different meals for the selected cuisine from the Cuisine aka Category Grid
+// https://koprowski.it/2020/vscode-extensions-for-react-native-javascript/
 
 // Alternative to navigate is push
 // props.navigation.push( "MealDetail" );
@@ -25,52 +77,5 @@ import React from "react";
 // every meal in the dummydata has an array of categories that it belongs to
 // indexOf is more than or equal to zero if the catId is in the array of catIds of the meal object
 
-const CategoryMealsScreen = (props) => {
-  const renderMealItem = (itemData) => {
-    return (
-      <View>
-        <Text>{itemData.item.title} </Text>
-      </View>
-    );
-  };
-  const catID = props.navigation.getParam("categoryId");
-  const displayedMeals = MEALS.filter(
-    (meal) => meal.categoryIds.indexOf(catID) >= 0
-  );
-  return (
-    <View style={styles.screen}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item, index) => item.id}
-        renderItem={renderMealItem}
-      />
-      <Button
-        title="Go to Meals"
-        onPress={() => {
-          props.navigation.navigate({ routeName: "MealDetail" });
-        }}
-      />
-      <Button
-        title="Go Back"
-        onPress={() => {
-          props.navigation.goBack();
-        }}
-      />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
-});
-
-// JS object or Function since we have changing data for the selected category
-CategoryMealsScreen.navigationOptions = (navigationData) => {
-  catID = navigationData.navigation.getParam("categoryId");
-  selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
-  return {
-    headerTitle: selectedCategory.title,
-  };
-};
-
-export default CategoryMealsScreen;
+// faced this error :
+// TypeError: undefined is not an object (evaluating '_dummyData.default.find') ==> because of incorrect FlatList import

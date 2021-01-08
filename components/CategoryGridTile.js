@@ -2,9 +2,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import React from "react";
 
-// unpack all key pair values in styles.container and merge it with the background color recieved as a prop
-// any text longer than 2 gets cut off
-
 const CategoryGridTile = (props) => {
   return (
     <TouchableOpacity style={styles.gridItem} onPress={props.onSelect}>
@@ -38,10 +35,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   title: {
-    fontFamily: "open-san-bold",
+    fontFamily: "open-sans-bold",
     fontSize: 22,
     textAlign: "right",
   },
 });
 
 export default CategoryGridTile;
+
+// unpack all key pair values in styles.container and merge it with the background color recieved as a prop
+// any text longer than 2 gets cut off
+
+// CategoryGridTile ==>  A component for each category in the CategoriesScreen
