@@ -28,17 +28,17 @@ MealDetailScreen.navigationOptions = (navigationData) => {
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
   return {
     headerTitle: selectedMeal.title,
-    headerRight: () => {
+    headerRight: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title="Favourite"
+          title="Favorite"
           iconName="ios-star"
           onPress={() => {
-            console.log("Mark as Fav");
+            console.log("Mark as favorite!");
           }}
         />
-      </HeaderButtons>;
-    },
+      </HeaderButtons>
+    ),
   };
 };
 
