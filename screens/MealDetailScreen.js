@@ -28,7 +28,7 @@ MealDetailScreen.navigationOptions = (navigationData) => {
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
   return {
     headerTitle: selectedMeal.title,
-    headerRight: (
+    headerRight: () => {
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Favourite"
@@ -37,8 +37,8 @@ MealDetailScreen.navigationOptions = (navigationData) => {
             console.log("Mark as Fav");
           }}
         />
-      </HeaderButtons>
-    ),
+      </HeaderButtons>;
+    },
   };
 };
 
@@ -56,3 +56,6 @@ export default MealDetailScreen;
 // HeaderLeft is the back button usually
 // the title of the item is used as a key for that item
 // you can have multiple items within the header buttons component ==> make sure the title name is different
+// Deprecation in 'navigationOptions':
+// - 'headerRight: <SomeElement />' will be removed in a future version. Use 'headerRight: () => <SomeElement />' instead
+// made the change
