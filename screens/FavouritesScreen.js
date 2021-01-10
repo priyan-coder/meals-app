@@ -12,8 +12,12 @@ const FavouritesScreen = (props) => {
   );
 };
 
-export default FavouritesScreen;
+FavouritesScreen.navigationOptions = {
+  headerTitle: "Your Favourites",
+};
 
 const styles = StyleSheet.create({
   screen: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
+
+export default FavouritesScreen;
