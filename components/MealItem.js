@@ -26,7 +26,7 @@ const MealItem = (props) => {
             </ImageBackground>
           </View>
           <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text>{props.duration}</Text>
+            <Text>{props.duration}m</Text>
             <Text>{props.complexity.toUpperCase()}</Text>
             <Text>{props.affordability.toUpperCase()}</Text>
           </View>
@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginVertical: 10,
   },
+  bgImage: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-end",
+  },
   mealRow: {
     flexDirection: "row",
   },
@@ -57,11 +62,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "15%",
   },
-  bgImage: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "flex-end",
-  },
   titleContainer: {
     backgroundColor: "rgba(0,0,0,0.5)",
     paddingVertical: 5,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "open-sans-bold",
-    fontSize: 22,
+    fontSize: 20,
     color: "white",
     textAlign: "center",
   },

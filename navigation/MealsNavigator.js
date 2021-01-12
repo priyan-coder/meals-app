@@ -1,3 +1,9 @@
+// import {
+//   createAppContainer,
+//   createBottomTabNavigator,
+//   createStackNavigator,
+// } from "react-navigation";
+
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import Colors from "../constants/Colors";
@@ -8,6 +14,7 @@ import { Platform } from "react-native";
 import React from "react";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 
 const defaultStackNavOptions = {
@@ -28,8 +35,6 @@ const MealsNavigator = createStackNavigator(
     },
     MealDetail: MealDetailScreen,
   },
-
-  // 2nd param
   {
     // initialRouteName: 'Categories',
     defaultNavigationOptions: defaultStackNavOptions,
@@ -41,70 +46,48 @@ const FavNavigator = createStackNavigator(
     Favorites: FavoritesScreen,
     MealDetail: MealDetailScreen,
   },
-
   {
+    // initialRouteName: 'Categories',
     defaultNavigationOptions: defaultStackNavOptions,
   }
 );
 
-const MealsFavTabNavigator = createBottomTabNavigator(
-  {
-    Meals: {
-      screen: MealsNavigator,
-      navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-          return (
-            <Ionicons
-              name="ios-restaurant"
-              size={25}
-              color={tabInfo.tintColor}
-            />
-          );
-        },
+const tabScreenConfig = {
+  Meals: {
+    screen: MealsNavigator,
+    navigationOptions: {
+      tabBarIcon: (tabInfo) => {
+        return (
+          <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
+        );
       },
-    },
-    Favorites: {
-      screen: FavNavigator,
-      navigationOptions: {
-        tabBarLabel: "Favorites!",
-        tabBarIcon: (tabInfo) => {
-          return (
-            <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />
-          );
-        },
-      },
+      tabBarColor: Colors.primaryColor,
     },
   },
-
-  // 2nd param
-  {
-    tabBarOptions: {
-      activeTintColor: Colors.accentColor,
+  Favorites: {
+    screen: FavNavigator,
+    navigationOptions: {
+      tabBarIcon: (tabInfo) => {
+        return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
+      },
+      tabBarColor: Colors.accentColor,
     },
-  }
-);
+  },
+};
+
+const MealsFavTabNavigator =
+  Platform.OS === "android"
+    ? createMaterialBottomTabNavigator(tabScreenConfig, {
+        activeTintColor: "white",
+        shifting: true,
+        barStyle: {
+          backgroundColor: Colors.primaryColor,
+        },
+      })
+    : createBottomTabNavigator(tabScreenConfig, {
+        tabBarOptions: {
+          activeTintColor: Colors.accentColor,
+        },
+      });
 
 export default createAppContainer(MealsFavTabNavigator);
-
-// setup for navigation between the screens
-// Pages and screens are managed on a stacks of pages ==> Data structure used = stack
-// visible screen is the top of the stack and when back button is clicked, the top is popped off
-// yarn add react-navigation-stack
-// effectively we are using a component to help with the navigation, transition between screens
-// AppContainer to wrap the stack of MealsNavigator with the meta data that react needs
-
-// Any of the screens under the navigator component from react-navigator gets a special prop
-
-// Instead of specifiying the navigationOptions at each screen after declaring its component
-// Adding it under MealsNavigator is better
-
-// Pass the defaultNavigationOptions aka default settings as a second param of createStackNavigator
-// Those options applied to every screen in the Navigator
-// The navigationOptions specified in the various screens take precedence or can override the default settings applied here
-// Hit control + space to check for other options to set in the second param for createStackNavigator
-
-// MealsNavigator is now nested in the tabs navigator
-// AppContainer is the root navigator which can contain nested navigators
-// Clicking on Meals tab leads to the stack while Fav leads to the Favourites Screen
-
-// The same screen can be used in multiple navigators

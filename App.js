@@ -1,7 +1,8 @@
+import "react-native-gesture-handler";
+
 import * as Font from "expo-font";
 
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 
 import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigation/MealsNavigator";

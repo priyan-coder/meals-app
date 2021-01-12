@@ -1,59 +1,29 @@
 import { CATEGORIES, MEALS } from "../data/dummy-data";
-import { FlatList, StyleSheet, View } from "react-native";
 
-import MealItem from "../components/MealItem";
+import MealList from "../components/MealList";
 import React from "react";
 
-const CategoryMealsScreen = (props) => {
-  const renderMealItem = (itemData) => {
-    return (
-      <MealItem
-        title={itemData.item.title}
-        duration={itemData.item.duration}
-        complexity={itemData.item.complexity}
-        affordability={itemData.item.affordability}
-        image={itemData.item.imageUrl}
-        onSelectMeal={() => {
-          props.navigation.navigate({
-            routeName: "MealDetail",
-            params: {
-              mealId: itemData.item.id,
-            },
-          });
-        }}
-      />
-    );
-  };
-  const catID = props.navigation.getParam("categoryId");
+const CategoryMealScreen = (props) => {
+  const catId = props.navigation.getParam("categoryId");
+
   const displayedMeals = MEALS.filter(
-    (meal) => meal.categoryIds.indexOf(catID) >= 0
+    (meal) => meal.categoryIds.indexOf(catId) >= 0
   );
-  return (
-    <View style={styles.screen}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item, index) => item.id}
-        renderItem={renderMealItem}
-        style={{ width: "100%" }}
-      />
-    </View>
-  );
+
+  return <MealList listData={displayedMeals} navigation={props.navigation} />;
 };
 
-const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "center", alignItems: "center" },
-});
+CategoryMealScreen.navigationOptions = (navigationData) => {
+  const catId = navigationData.navigation.getParam("categoryId");
 
-// JS object or Function since we have changing data for the selected category
-CategoryMealsScreen.navigationOptions = (navigationData) => {
-  catID = navigationData.navigation.getParam("categoryId");
-  selectedCategory = CATEGORIES.find((cat) => cat.id === catID);
+  const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
+
   return {
     headerTitle: selectedCategory.title,
   };
 };
 
-export default CategoryMealsScreen;
+export default CategoryMealScreen;
 
 // Display the different meals for the selected cuisine from the Cuisine aka Category Grid
 // https://koprowski.it/2020/vscode-extensions-for-react-native-javascript/
